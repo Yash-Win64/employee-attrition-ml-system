@@ -6,6 +6,8 @@ from schema.validate import InputData
 from feature_builders import assemble_features,TRAINING_COLUMNS
 from fastapi.responses import JSONResponse 
 from model.predict import predict_output
+from fastapi.middleware.cors import CORSMiddleware
+
 
 
 
@@ -13,6 +15,12 @@ app = FastAPI(title="Employee Attrition Predictor")
 BASE_DIR = Path(__file__).resolve().parent
 
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 MODEL_PATH = BASE_DIR / "model" / "attrition_pred_model.joblib"
